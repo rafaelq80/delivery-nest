@@ -93,7 +93,7 @@ export class ProdutoService {
 
   async findSaudavel(): Promise<Produto[]> {
     const maxCalorias = 300.0;
-    const minProteinas = 15.0;
+    const minProteinas = 20.0;
 
     return await this.produtoRepository.find({
       where: {
