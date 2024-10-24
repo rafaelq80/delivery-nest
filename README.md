@@ -1,4 +1,4 @@
-# Projeto Delivery de Alimentos
+# Projeto Delivery de Alimentos - Backend
 
 <br />
 
@@ -9,7 +9,7 @@
 
 <br /><br />
 
-## 1. O que é um Sistema de Delivery de Alimentos?
+## 1. Descrição
 
 Um sistema de delivery de alimentos é uma plataforma digital que permite aos usuários pedirem comida de restaurantes ou estabelecimentos parceiros e terem a refeição entregue em sua localização. Estes sistemas geralmente incluem:
 
@@ -25,7 +25,7 @@ No caso de um sistema focado em alimentos saudáveis, há um ênfase adicional e
 - Opções para dietas específicas (vegana, sem glúten, low-carb, etc.)
 - Recomendações personalizadas baseadas nas preferências e necessidades do usuário
 
-<br />
+------
 
 ## 2. Sobre esta API
 
@@ -51,7 +51,7 @@ Para definir se um alimento é saudável, é importante considerar os valores de
 2. **Proteínas**:
    - Para um prato equilibrado, a porção de proteínas deve variar entre **20 a 35 gramas** por refeição.
 
-<br /><br />
+------
 
 ## 3. Diagrama de Classes
 
@@ -75,7 +75,6 @@ class Produto {
   - preco : number
   - calorias : number
   - proteinas : number
-  - gorduras : number
   - foto : string
   - categoria : Categoria
   - usuario : Usuario
@@ -122,7 +121,7 @@ Usuario --> Produto
     - *Proteínas >= 20*
   - O resultado final deve ser expresso em horas e minutos
 
-<br /><br />
+------
 
 ## 4. Diagrama Entidade-Relacionamento (DER)
 
@@ -133,7 +132,7 @@ Usuario --> Produto
 </div>
 
 
-<br /><br />
+------
 
 ## 5. Tecnologias utilizadas
 
@@ -145,7 +144,7 @@ Usuario --> Produto
 | **ORM**                       | TypeORM    |
 | **Banco de dados Relacional** | MySQL      |
 
-<br /><br />
+------
 
 ## 6. Configuração e Execução
 
@@ -153,3 +152,10 @@ Usuario --> Produto
 2. Instale as dependências: `npm install`
 3. Configure o banco de dados no arquivo `app.module.ts`
 4. Execute a aplicação: `npm run start:dev`
+
+------
+
+## 7. Implementações Futuras
+
+- [ ] Implementar a função Curtir produtos
+
