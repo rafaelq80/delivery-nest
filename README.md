@@ -19,7 +19,7 @@ Um sistema de delivery de alimentos é uma plataforma digital que permite aos us
 4. Rastreamento de entrega
 5. Avaliações e feedback dos usuários
 
-No caso de um sistema focado em alimentos saudáveis, há um ênfase adicional em:
+No caso de um sistema focado em alimentos saudáveis é fundamental incluir:
 
 - Informações nutricionais detalhadas
 - Opções para dietas específicas (vegana, sem glúten, low-carb, etc.)
