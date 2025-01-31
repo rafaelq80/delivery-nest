@@ -1,8 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, LessThanOrEqual, Like, MoreThanOrEqual, Repository } from 'typeorm';
+import { DeleteResult, In, LessThanOrEqual, Like, MoreThanOrEqual, Repository } from 'typeorm';
 import { CategoriaService } from '../../categoria/services/categoria.service';
 import { Produto } from '../entities/produto.entity';
+import { NutriScoreService } from './nutriscore.service';
 
 @Injectable()
 export class ProdutoService {
@@ -10,6 +11,7 @@ export class ProdutoService {
     @InjectRepository(Produto)
     private produtoRepository: Repository<Produto>,
     private categoriaService: CategoriaService,
+    private nutriscoreService: NutriScoreService,
   ) {}
 
   async findAll(): Promise<Produto[]> {
@@ -62,6 +64,10 @@ export class ProdutoService {
 
     await this.categoriaService.findById(produto.categoria.id);
 
+    const nutriscore = await this.nutriscoreService.pesquisarNutriScore(produto.nome);
+
+    produto.nutriscore = nutriscore;
+
     return await this.produtoRepository.save(produto);
   }
 
@@ -82,6 +88,10 @@ export class ProdutoService {
 
     await this.categoriaService.findById(produto.categoria.id);
 
+    const nutriscore = await this.nutriscoreService.pesquisarNutriScore(produto.nome);
+
+    produto.nutriscore = nutriscore;
+
     return await this.produtoRepository.save(produto);
   }
 
@@ -92,13 +102,10 @@ export class ProdutoService {
   }
 
   async findSaudavel(): Promise<Produto[]> {
-    const maxCalorias = 300.0;
-    const minProteinas = 20.0;
 
     return await this.produtoRepository.find({
       where: {
-        calorias: LessThanOrEqual(maxCalorias),
-        proteinas: MoreThanOrEqual(minProteinas)
+       nutriscore: In(['A', 'B']),
       },
       relations: {
         categoria: true,

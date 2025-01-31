@@ -29,15 +29,9 @@ export class Produto {
   @ApiProperty()
   preco: number;
 
-  @IsPositive()
-  @Column({ type: 'float'})
+  @Column({ length: 1, nullable: false })
   @ApiProperty()
-  calorias: number;
-
-  @IsPositive()
-  @Column({ type: 'float' })
-  @ApiProperty()
-  proteinas: number;
+  nutriscore: string;
 
   @Column({ length: 5000 })
   @ApiProperty()
