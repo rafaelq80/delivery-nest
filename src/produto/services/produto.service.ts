@@ -78,7 +78,7 @@ export class ProdutoService {
         HttpStatus.NOT_FOUND,
       );
 
-    await this.findById(produto.id);
+    const buscaProduto = await this.findById(produto.id);
 
     if (!produto.categoria)
       throw new HttpException(
@@ -88,9 +88,12 @@ export class ProdutoService {
 
     await this.categoriaService.findById(produto.categoria.id);
 
-    const nutriscore = await this.nutriscoreService.pesquisarNutriScore(produto.nome);
+    if( produto.nome !== buscaProduto.nome){
+      
+      const nutriscore = await this.nutriscoreService.pesquisarNutriScore(produto.nome);
+      produto.nutriscore = nutriscore;
 
-    produto.nutriscore = nutriscore;
+    }
 
     return await this.produtoRepository.save(produto);
   }

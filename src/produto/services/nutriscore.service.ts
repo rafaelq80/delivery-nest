@@ -43,7 +43,8 @@ export class NutriScoreService {
             % de frutas, legumes e oleaginosas.
             Se possível, baseie-se em fontes confiáveis, como tabelas nutricionais oficiais 
             ou informações de rótulos de produtos similares. 
-            Caso haja variações dependendo do preparo, forneça uma média geral.`;
+            Caso haja variações dependendo do preparo, forneça uma média geral.
+            Não traga as informações nutricionais na forma de tabela.`;
   }
 
   private async chamarGeminiAPI(prompt: string): Promise<string> {
