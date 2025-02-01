@@ -82,8 +82,8 @@ export class NutriScoreService {
       );
 
       const valorFinal = valores.length > 1 
-        ? valores.reduce((a, b) => a + b, 0) / valores.length 
-        : valores[0];
+      ? Math.max(...valores)
+      : valores[0];
 
       return isNaN(valorFinal) ? 0 : valorFinal;
     };
