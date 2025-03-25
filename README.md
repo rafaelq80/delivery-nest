@@ -77,8 +77,7 @@ A API do **Google Gemini** será utilizada para obter as informações nutricion
 2. Criar um novo projeto
 3. Ativar a **API do Gemini** e gerar uma **chave de API**
 4. Adicionar a chave de API e a URL nas variáveis de ambiente do projeto Nest
-5. **URL da API do Gemini:** https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent
-6. Criar um serviço para consumir a API do Gemini, através do envio de requisições HTTP
+5. Criar um serviço para consumir a API do Gemini, através do envio de requisições HTTP
 
 <br />
 
