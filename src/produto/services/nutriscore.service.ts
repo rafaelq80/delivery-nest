@@ -91,50 +91,6 @@ export class NutriScoreService {
     }
   }
 
-  // private obterDadosNutricionais(resposta: string): NutriScoreData {
-  //   const extrairValor = (padrao: RegExp): number => {
-  //     const match = resposta.match(padrao);
-  //     if (!match) return 0;
-
-  //     const valores = match[1].split('-').map((v) =>
-  //       parseFloat(
-  //         v
-  //           .trim()
-  //           .replace(',', '.')
-  //           .replace(/[^\d.]/g, ''),
-  //       ),
-  //     );
-
-  //     const valorFinal = valores.length > 1 ? Math.max(...valores) : valores[0];
-
-  //     return isNaN(valorFinal) ? 0 : valorFinal;
-  //   };
-
-  //   return {
-  //     valorEnergetico: extrairValor(
-  //       /Valor energético.*?(\d+(?:,\d+)?(?:\s*-\s*\d+(?:,\d+)?)?)\s*kcal/i,
-  //     ),
-  //     acucaresTotais: extrairValor(
-  //       /Açúcares totais.*?(\d+(?:,\d+)?(?:\s*-\s*\d+(?:,\d+)?)?)\s*g/i,
-  //     ),
-  //     gordurasSaturadas: extrairValor(
-  //       /(?:teor de )?gordura(?:s)? saturada(?:s)?.*?(\d+(?:,\d+)?(?:\s*-\s*\d+(?:,\d+)?)?)\s*g/i,
-  //     ),
-  //     sodio: extrairValor(
-  //       /Sódio.*?(\d+(?:,\d+)?(?:\s*-\s*\d+(?:,\d+)?)?)\s*mg/i,
-  //     ),
-  //     proteinas: extrairValor(
-  //       /(?:Proteína(?:s)?.*?)?(\d+(?:,\d+)?(?:\s*-\s*\d+(?:,\d+)?)?)\s*g/i,
-  //     ),
-  //     fibrasAlimentares: extrairValor(
-  //       /Fibras alimentares.*?(\d+(?:,\d+)?(?:\s*-\s*\d+(?:,\d+)?)?)\s*g/i,
-  //     ),
-  //     percentualFrutasLegumesOleaginosas: extrairValor(
-  //       /% de frutas, legumes e oleaginosas.*?(\d+(?:,\d+)?(?:\s*-\s*\d+(?:,\d+)?)?)\s*%/i,
-  //     ),
-  //   };
-  // }
-
   private obterDadosNutricionais(resposta: string): NutriScoreData {
     return {
       valorEnergetico: this.extrairValorFlexivel(resposta, {
