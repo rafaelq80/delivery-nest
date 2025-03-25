@@ -5,55 +5,84 @@
 <div align="center">
     <img src="https://i.imgur.com/icgjsRQ.png" title="source: imgur.com" width="50%"/>
 </div>
-
-
 <br /><br />
 
 ## 1. Descrição
 
-Um sistema de delivery de alimentos é uma plataforma digital que permite aos usuários pedirem comida de restaurantes ou estabelecimentos parceiros e terem a refeição entregue em sua localização. Estes sistemas geralmente incluem:
+Um sistema de **delivery de alimentos saudáveis** permite que os usuários solicitem refeições de restaurantes parceiros, garantindo opções balanceadas e informativas para uma alimentação mais saudável. Geralmente, estas plataformas oferecem as seguintes funcionalidades
 
 1. Um catálogo de restaurantes e pratos disponíveis
 2. Funcionalidade de busca e filtragem de opções
 3. Sistema de pedidos e pagamentos online
-4. Rastreamento de entrega
-5. Avaliações e feedback dos usuários
+4. Avaliações e feedback dos usuários
+5. Entre outros recursos
 
 No caso de um sistema focado em alimentos saudáveis é fundamental incluir:
 
-- Informações nutricionais detalhadas
+- Informações nutricionais
 - Opções para dietas específicas (vegana, sem glúten, low-carb, etc.)
 - Recomendações personalizadas baseadas nas preferências e necessidades do usuário
 
-------
+<br />
 
 ## 2. Sobre esta API
 
-Esta API foi desenvolvida utilizando NestJS para criar a estrutura básica de um sistema de delivery de alimentos saudáveis. Ela fornece endpoints para gerenciar usuários, pratos e categorias alimentares, além de oferecer recomendações de pratos saudáveis com base nos macro nutrientes.
 
->Os macro nutrientes são nutrientes que o corpo humano precisa em grandes quantidades para funcionar normalmente, e devem constituir a maior parte da dieta. São eles: Carboidratos, Proteínas, Gorduras.
 
-### 2.1. Principais Funcionalidades
+A API foi desenvolvida utilizando o Framework **NestJS**, oferecendo endpoints para gerenciamento dos **usuários, dos produtos e das categorias alimentares**, além de recomendações de pratos saudáveis baseadas nos macro nutrientes.
+
+
+
+### Principais funcionalidades:
 
 1. Cadastro e gerenciamento de usuários
 2. Registro e gerenciamento de categorias
 3. Criação e gerenciamento de produtos
-4. Indicação de produtos saudáveis
+4. Indicação de produtos saudáveis utilizando o modelo **NutriScore**
 
-### 2.2. Indicação de Alimentos Saudáveis
+<br />
 
-Para definir se um alimento é saudável, é importante considerar os valores de **calorias** e **proteínas** de acordo com as necessidades nutricionais diárias recomendadas, que podem variar dependendo de fatores como idade, gênero, nível de atividade física e objetivos de saúde. No entanto, algumas diretrizes gerais ajudam a criar um equilíbrio entre esses macro nutrientes.
+## 3. Indicação de Alimentos Saudáveis - NutriScore
 
-#### Diretrizes Gerais para um Prato Saudável:
 
-1. **Calorias**:
-   - Um prato saudável geralmente tem entre **300 a 500 calorias**, dependendo do total diário de ingestão recomendado (normalmente entre 1.800 a 2.500 calorias por dia).
-2. **Proteínas**:
-   - Para um prato equilibrado, a porção de proteínas deve variar entre **20 a 35 gramas** por refeição.
 
-------
+O **NutriScore** é um sistema de classificação nutricional que avalia alimentos de acordo com sua qualidade nutricional, utilizando uma escala de **A (verde escuro - mais saudável) a E (vermelho - menos saudável)**, como vemos na imagem abaixo:
 
-## 3. Diagrama de Classes
+<div align="center">
+    <img src="https://i.imgur.com/uYe56AM.png" title="source: imgur.com" width="30%"/>
+</div>
+
+A classificação é baseada nos **nutrientes bons e ruins** por 100g do alimento:
+
+- **Bons:** fibras, proteínas, frutas, legumes e oleaginosas
+- **Ruins:** calorias, açúcares, gorduras saturadas e sódio
+
+O sistema atribui pontos a cada critério, calculando a classificação final do alimento.
+
+<br />
+
+## 4. Integração com a API - Google Gemini
+
+
+
+O **Google Gemini** é uma família de modelos de inteligência artificial (IA) desenvolvida pelo Google DeepMind. Ele é projetado para processar múltiplos tipos de dados (texto, imagem, áudio e código) e pode ser utilizado em diversas aplicações, como assistentes virtuais, geração de texto, análise de imagens e mais.
+
+A API do **Google Gemini** será utilizada para obter as informações nutricionais dos alimentos no momento do cadastro e atualização dos dados dos produtos. Isso permitirá que os usuários recebam dados precisos e confiáveis.
+
+
+
+### Passos para integração:
+
+1. Criar um projeto no [Google Cloud Console](https://console.cloud.google.com)
+2. Criar um novo projeto
+3. Ativar a **API do Gemini** e gerar uma **chave de API**
+4. Adicionar a chave de API e a URL nas variáveis de ambiente do projeto Nest
+5. **URL da API do Gemini:** https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent
+6. Criar um serviço para consumir a API do Gemini, através do envio de requisições HTTP
+
+<br />
+
+## 5. Diagrama de Classes
 
 ```mermaid
 classDiagram
@@ -74,7 +103,7 @@ class Produto {
   - nome : string
   - preco : number
   - foto : string
-  - nutriscore: string
+  - nutriscore : string
   - categoria : Categoria
   - usuario : Usuario
   + findAll()
@@ -109,20 +138,9 @@ Categoria --> Produto
 Usuario --> Produto
 ```
 
-**Observações Importantes:**
+<br />
 
-- O método **findSaudavel** deve atender a alguns requisitos:
-  - Receber os parâmetros do tipo number **calorias e proteínas**
-  - As calorias devem ser expressas em **quilocalorias (Kcal)**
-  - As proteínas devem ser expressas em **gramas (g)**
-  - Os critérios para determinar se um alimento é saudável serão os seguintes:
-    - *Calorias <= 300*
-    - *Proteínas >= 20*
-  - O resultado final deve ser expresso em horas e minutos
-
-------
-
-## 4. Diagrama Entidade-Relacionamento (DER)
+## 6. Diagrama Entidade-Relacionamento (DER)
 
 
 
@@ -155,11 +173,9 @@ erDiagram
 
 ```
 
+<br />
 
-
-------
-
-## 5. Tecnologias utilizadas
+## 7. Tecnologias utilizadas
 
 | Item                          | Descrição  |
 | ----------------------------- | ---------- |
@@ -169,18 +185,19 @@ erDiagram
 | **ORM**                       | TypeORM    |
 | **Banco de dados Relacional** | MySQL      |
 
-------
+<br />
 
-## 6. Configuração e Execução
+## 8. Configuração e Execução
 
 1. Clone o repositório
 2. Instale as dependências: `npm install`
 3. Configure o banco de dados no arquivo `app.module.ts`
-4. Execute a aplicação: `npm run start:dev`
+4. Configure as variaveis de ambiente no arquivo `.env`
+5. Execute a aplicação: `npm run start:dev`
 
-------
+<br />
 
-## 7. Implementações Futuras
+## 9. Implementações Futuras
 
 - [ ] Implementar a função Curtir produtos
 
