@@ -47,12 +47,13 @@ export class NutriScoreService {
 
   private criarPrompt(produto: string): string {
     return `Forneça informações nutricionais médias por 100g do prato ${produto}. 
-            Inclua: Valor energético (kcal), Açúcares totais (g), Gorduras saturadas (g), 
-            Sódio (mg), Proteínas (g), Fibras alimentares (g), 
-            % de frutas, legumes e oleaginosas.
+            Inclua: valor energético (kcal), açúcares (g), gordura saturada (g), 
+            teor de sódio (mg), proteínas (g), fibras alimentares (g), 
+            percentual de frutas, legumes e oleaginosas (%).
             Se possível, baseie-se em fontes confiáveis, como tabelas nutricionais oficiais 
             ou informações de rótulos de produtos similares. 
-            Caso haja variações dependendo do preparo, forneça uma média geral.
+            Caso haja variações dependendo do preparo, forneça uma média geral ou o maior valor
+            no caso de um intervalo de valores.
             Não traga as informações nutricionais na forma de tabela.`;
   }
 
