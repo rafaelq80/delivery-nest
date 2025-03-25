@@ -119,7 +119,7 @@ export class NutriScoreService {
         /Açúcares totais.*?(\d+(?:,\d+)?(?:\s*-\s*\d+(?:,\d+)?)?)\s*g/i,
       ),
       gordurasSaturadas: extrairValor(
-        /Gorduras saturadas.*?(\d+(?:,\d+)?(?:\s*-\s*\d+(?:,\d+)?)?)\s*g/i,
+        /(?:teor de )?gordura(?:s)? saturada(?:s)?.*?(\d+(?:,\d+)?(?:\s*-\s*\d+(?:,\d+)?)?)\s*g/i,
       ),
       sodio: extrairValor(
         /Sódio.*?(\d+(?:,\d+)?(?:\s*-\s*\d+(?:,\d+)?)?)\s*mg/i,
