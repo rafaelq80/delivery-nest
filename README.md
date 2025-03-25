@@ -73,9 +73,8 @@ class Produto {
   - id : number
   - nome : string
   - preco : number
-  - calorias : number
-  - proteinas : number
   - foto : string
+  - nutriscore: string
   - categoria : Categoria
   - usuario : Usuario
   + findAll()
@@ -127,9 +126,35 @@ Usuario --> Produto
 
 
 
-<div align="center">
-    <img src="https://i.imgur.com/TpWB1bs.png" title="source: imgur.com" />
-</div>
+```mermaid
+erDiagram
+    CATEGORIA o|--o{ PRODUTO : classifica
+    CATEGORIA {
+        bigint id PK
+        varchar(255) descricao
+        varchar(5000) icone
+    }
+    PRODUTO }o--|o USUARIO : tem
+    PRODUTO {
+        bigint id PK
+        varchar(255) nome
+        decimal preco
+        varchar(5000) foto
+        varchar(255) nutriscore
+        bigint categoria_id FK
+        bigint usuario_id FK
+    }
+    USUARIO {
+		bigint id PK
+		varchar(255) nome
+		varchar(255) usuario
+		varchar(255) senha
+		varchar(5000) foto
+    }
+
+
+```
+
 
 
 ------
