@@ -125,7 +125,7 @@ export class NutriScoreService {
         /Sódio.*?(\d+(?:,\d+)?(?:\s*-\s*\d+(?:,\d+)?)?)\s*mg/i,
       ),
       proteinas: extrairValor(
-        /Proteínas.*?(\d+(?:,\d+)?(?:\s*-\s*\d+(?:,\d+)?)?)\s*g/i,
+        /(?:Proteína(?:s)?.*?)?(\d+(?:,\d+)?(?:\s*-\s*\d+(?:,\d+)?)?)\s*g/i,
       ),
       fibrasAlimentares: extrairValor(
         /Fibras alimentares.*?(\d+(?:,\d+)?(?:\s*-\s*\d+(?:,\d+)?)?)\s*g/i,
