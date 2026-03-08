@@ -92,6 +92,7 @@ Se houver variação dependendo do preparo, use a média geral ou o maior valor.
     } catch (error: any) {
       if (error instanceof HttpException) throw error;
 
+<<<<<<< HEAD
       this.logger.error('Erro na chamada da API Groq', error?.response?.data ?? error?.message);
 
       if (error?.response) {
@@ -99,6 +100,100 @@ Se houver variação dependendo do preparo, use a média geral ou o maior valor.
           error.response.data?.error?.message || 'Erro na API Groq',
           error.response.status || HttpStatus.INTERNAL_SERVER_ERROR,
         );
+=======
+  private obterDadosNutricionais(resposta: string): NutriScoreData {
+    return {
+      valorEnergetico: this.extrairValorFlexivel(resposta, {
+        termosPrincipais: ['valor energético', 'energia'],
+        termosSecundarios: ['kcal', 'caloria'],
+        unidade: 'kcal',
+        padroesAdicionais: [
+          /aproximadamente\s*(\d+)\s*kcal/i,
+          /em torno de\s*(\d+)\s*kcal/i,
+        ],
+      }),
+      acucaresTotais: this.extrairValorFlexivel(resposta, {
+        termosPrincipais: ['açúcares totais', 'conteúdo de açúcares'],
+        termosSecundarios: ['açúcar'],
+        unidade: 'g',
+      }),
+      gordurasSaturadas: this.extrairValorFlexivel(resposta, {
+        termosPrincipais: ['gordura saturada', 'teor de gordura'],
+        termosSecundarios: ['gordura', 'saturada'],
+        unidade: 'g',
+        padroesAdicionais: [
+          /gordura saturada.*?em torno de\s*(\d+(?:,\d+)?)\s*g/i,
+          /gordura saturada.*?aproximadamente\s*(\d+(?:,\d+)?)\s*g/i,
+        ],
+      }),
+      sodio: this.extrairValorFlexivel(resposta, {
+        termosPrincipais: ['teor de sódio', 'sódio'],
+        termosSecundarios: ['sal'],
+        unidade: 'mg',
+      }),
+      proteinas: this.extrairValorFlexivel(resposta, {
+        termosPrincipais: ['proteínas', 'teor de proteínas'],
+        unidade: 'g',
+      }),
+      fibrasAlimentares: this.extrairValorFlexivel(resposta, {
+        termosPrincipais: ['fibras alimentares', 'fibras'],
+        unidade: 'g',
+      }),
+      percentualFrutasLegumesOleaginosas: this.extrairValorFlexivel(resposta, {
+        termosPrincipais: [
+          'frutas, legumes e oleaginosas',
+          'percentual de frutas',
+        ],
+        termosSecundarios: ['frutas', 'legumes', 'oleaginosas'],
+        unidade: '%',
+      }),
+    };
+  }
+
+  private extrairValorFlexivel(
+    resposta: string,
+    configuracoes: {
+      termosPrincipais: string[];
+      termosSecundarios?: string[];
+      unidade?: string;
+      padroesAdicionais?: RegExp[];
+    },
+  ): number {
+    const {
+      termosPrincipais,
+      termosSecundarios = [],
+      unidade = 'g',
+      padroesAdicionais = [],
+    } = configuracoes;
+
+    // Regex padrão baseada nos termos principais
+    const regexPadrao = new RegExp(
+      `(?:${termosPrincipais.join('|')}).*?` +
+        `(\\d+(?:,\\d+)?(?:\\s*-\\s*\\d+(?:,\\d+)?)?)?\\s*${unidade}`,
+      'i',
+    );
+
+    // Primeiro tenta os padrões adicionais
+    for (const padraoAdicional of padroesAdicionais) {
+      const matchAdicional = resposta.match(padraoAdicional);
+      if (matchAdicional) {
+        const valorAdicional = this.normalizarValor(matchAdicional[1]);
+        if (valorAdicional !== null) return valorAdicional;
+      }
+    }
+
+    // Depois tenta o padrão principal
+    const match = resposta.match(regexPadrao);
+    if (match) {
+      const valor = this.normalizarValor(match[1]);
+
+      // Se não encontrou, tenta termos secundários
+      if (valor === null && termosSecundarios.length) {
+        return this.extrairValorFlexivel(resposta, {
+          termosPrincipais: termosSecundarios,
+          unidade,
+        });
+>>>>>>> 8696d48fc4e17c9afb9df74d1d8507cdfd9c5f3a
       }
 
       throw new HttpException(

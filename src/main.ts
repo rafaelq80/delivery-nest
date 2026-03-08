@@ -9,8 +9,8 @@ async function bootstrap() {
   const config = new DocumentBuilder()
   .setTitle('Projeto Delivery de Alimentos')
   .setDescription('Projeto Delivery de Alimentos')
-  .setContact("Generation Brasil","https://brazil.generation.org","generation@email.com")
-  .setVersion('1.0')
+  .setContact("Rafael Queiroz","https://github.com/rafaelq80","rafaelproinfo@gmail.com")
+  .setVersion('2.0')
   .addBearerAuth()
   .build();
   const document = SwaggerModule.createDocument(app, config);
