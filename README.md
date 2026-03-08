@@ -61,23 +61,25 @@ O sistema atribui pontos a cada critério, calculando a classificação final do
 
 <br />
 
-## 4. Integração com a API - Google Gemini
+## 4. Integração com a API - Groq
 
+O Groq é uma plataforma de inferência de inteligência artificial de alta velocidade, que disponibiliza modelos de linguagem open-source como o **LLaMA da Meta** por meio de uma API compatível com o padrão OpenAI. Ele se destaca pela baixa latência e pela generosa camada gratuita, sem restrições por região.
 
+A API do Groq será utilizada no Projeto Delivery de Alimentos para Clacular o Nutriscore dos pratos, com base nas informações nutricionais obtidas pela IA.
 
-O **Google Gemini** é uma família de modelos de inteligência artificial (IA) desenvolvida pelo Google DeepMind. Ele é projetado para processar múltiplos tipos de dados (texto, imagem, áudio e código) e pode ser utilizado em diversas aplicações, como assistentes virtuais, geração de texto, análise de imagens e mais.
+No modelo Gratuíto, cada cálculo do Nutriscore consumirá em torno de 1.000–2.000 tokens, permitindo calcular o Nutriscore de 50 a 100 pratos por dia.
 
-A API do **Google Gemini** será utilizada para obter as informações nutricionais dos alimentos no momento do cadastro e atualização dos dados dos produtos. Isso permitirá que os usuários recebam dados precisos e confiáveis.
+### 4.1. Passos para integração com a API do Groq:
 
+1. Criar uma conta em [console.groq.com](https://console.groq.com)
+2. Gerar uma chave de API na seção **API Keys**
+3. Adicionar as seguintes variáveis de ambiente no Projeto Aplicativo Fitness:
 
-
-### Passos para integração:
-
-1. Criar um projeto no [Google Cloud Console](https://console.cloud.google.com)
-2. Criar um novo projeto
-3. Ativar a **API do Gemini** e gerar uma **chave de API**
-4. Adicionar a chave de API e a URL nas variáveis de ambiente do projeto Nest
-5. Criar um serviço para consumir a API do Gemini, através do envio de requisições HTTP
+```env
+GROQ_API_KEY=sua_chave_aqui
+GROQ_API_URL=https://api.groq.com/openai/v1/chat/completions
+GROQ_MODEL=llama-3.3-70b-versatile
+```
 
 <br />
 
